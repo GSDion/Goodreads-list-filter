@@ -38,15 +38,21 @@ dtype: object"""
 
 pd.set_option('display.max_columns', None)
 
-def filter_dataframe(dataFrame, column_name, sub_filter):
-    # Attempt to convert columns to string before applying the filter
-    if column_name in ['Year Published', 'Date Added']:  # Columns that might need specific handling
-        dataFrame = dataFrame[dataFrame[column_name].astype('str').str.contains(sub_filter, na=False)]
-    else:
-        dataFrame = dataFrame[dataFrame[column_name].str.contains(sub_filter, na=False)]
+# General filter method
+def filter_dataframe(dataFrame, filters):
+    # Loop through all filters provided
+    for column_name, sub_filter in filters.items():
+        # Attempt to convert columns to string before applying the filter
+        if column_name in ['Year Published', 'Date Added']:  # Columns that might need specific handling
+            dataFrame = dataFrame[dataFrame[column_name].astype('str').str.contains(sub_filter, na=False)]
+        else:
+            dataFrame = dataFrame[dataFrame[column_name].str.contains(sub_filter, na=False)]
         
-    print("\nFetching rows with {0:s} in column {1:s}.....\n".format(sub_filter, column_name))
+        print("\nFetching rows with '{0:s}' in column '{1:s}'.....".format(sub_filter, column_name))
+    
+    # Return the filtered DataFrame
     print(dataFrame)
+    return dataFrame
     
 ## NOT APPLICABLE
 def filter_genre(dataFrame, sub_filter):
@@ -73,12 +79,11 @@ fullPath = homePath + fileName
 if os.path.exists(fullPath):
     dataFrame = pd.read_csv(fileName)
 
-# Ask for filter(s), (One filter for now)
-print(dataFrame.dtypes)
-filter_type = input("Enter the type of filter that you would like to use (genre, author, year published, publisher, binding type, date added): ").lower()
-sub_filter = input("Enter the constraint for the filter: ") # Make the sub-filter case insensitive
 
-    
+print(dataFrame.dtypes)
+
+# Initialize a dictionary to store multiple filters
+filters = {}
 # Map filter types to column names in the DataFrame
 column_mapping = {
     "genre": "Genre",
@@ -89,8 +94,27 @@ column_mapping = {
     "date added": "Date Added"
 }
 
-# Ensure the filter type exists in the mapping
-if filter_type in column_mapping:
-    filter_dataframe(dataFrame, column_mapping[filter_type], sub_filter)
+while True:
+    # Ask for filter type
+    filter_type = input("Enter the type of filter (genre, author, year published, publisher, binding type, date added), or type 'done' to finish: ").lower()
+    
+    if filter_type == 'done':
+        break  # Exit the loop when user is done adding filters
+
+    if filter_type in column_mapping:
+        sub_filter = input(f"Enter the constraint for the '{filter_type}' filter: ")
+        filters[column_mapping[filter_type]] = sub_filter  # Add filter to the dictionary
+    else:
+        print("Invalid filter type entered.")
+
+# # Ensure the filter type exists in the mapping
+# if filter_type in column_mapping:
+#     filter_dataframe(dataFrame, column_mapping[filter_type], sub_filter)
+# else:
+#     print("Invalid filter type entered.")
+
+# Apply all filters
+if filters:
+    filtered_data = filter_dataframe(dataFrame, filters)
 else:
-    print("Invalid filter type entered.")
+    print("No filters applied.")
