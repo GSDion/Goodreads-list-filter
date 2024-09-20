@@ -27,9 +27,27 @@ Private Notes                 float64
 Read Count                      int64
 Owned Copies                    int64
 dtype: object"""
+"""Potential Filters: Author l-f, Additional Authors, ISBN, ISBN13, My Rating, Average Rating,
+    Original Publication Year,Read Count,Owned Copies, My Review (search for keywords)"""
+
+# Implemented and working: Author, Year Published, Binding, Publisher
+# Not working: date added
+# Not applicable atm: Genre
+# Year Published Error - AttributeError: Can only use .str accessor with string values!. Did you mean: 'std'?
+# Publisher Error -  ValueError: Cannot mask with non-boolean array containing NA / NaN values
 
 pd.set_option('display.max_columns', None)
 
+def filter_dataframe(dataFrame, column_name, sub_filter):
+    # Attempt to convert columns to string before applying the filter
+    if column_name in ['Year Published', 'Date Added']:  # Columns that might need specific handling
+        dataFrame = dataFrame[dataFrame[column_name].astype('str').str.contains(sub_filter, na=False)]
+    else:
+        dataFrame = dataFrame[dataFrame[column_name].str.contains(sub_filter, na=False)]
+        
+    print("\nFetching rows with {0:s} in column {1:s}.....\n".format(sub_filter, column_name))
+    print(dataFrame)
+    
 ## NOT APPLICABLE
 def filter_genre(dataFrame, sub_filter):
     dataFrame = dataFrame[dataFrame['Genre'].str.contains(sub_filter,na=False)]
@@ -38,42 +56,12 @@ def filter_genre(dataFrame, sub_filter):
     # print(tabulate(dataFrame, headers = 'keys', tablefmt='psql'))
     print(dataFrame)
 
-## WORKING
-def  filter_author(dataFrame, sub_filter):
-    dataFrame = dataFrame[dataFrame['Author'].str.contains(sub_filter,na=False)]
-    print("\nFetching rows with {0:s}.....\n".format(sub_filter))
-    print(dataFrame)
-
-# WORKING
-#AttributeError: Can only use .str accessor with string values!. Did you mean: 'std'?
-def filter_year_published(dataFrame, sub_filter):
-    dataFrame = dataFrame[dataFrame['Year Published'].astype('str').str.contains(sub_filter,na=False)]
-    print("\nFetching rows with {0:s}.....\n".format(sub_filter))
-    print(dataFrame)
-
-
-# WORKING
-#ValueError: Cannot mask with non-boolean array containing NA / NaN values
-def filter_publisher(dataFrame, sub_filter):
-    dataFrame = dataFrame[dataFrame['Publisher'].str.contains(sub_filter,na=False)]
-    print("\nFetching rows with {0:s}.....\n".format(sub_filter))
-    print(dataFrame)
-
-# WORKING
-def filter_binding_type(dataFrame, sub_filter):
-    dataFrame = dataFrame[dataFrame['Binding'].str.contains(sub_filter,na=False)]
-    print("\nFetching rows with {0:s}.....\n".format(sub_filter))
-    print(dataFrame)
-
 ## NOT WORKING
 def filter_date_added(dataFrame, sub_filter):
     # dataFrame = dataFrame[dataFrame['Date Added'].astype('str').str.contains(sub_filter,na=False)]
     dataFrame = dataFrame[dataFrame['Date Added'].isin(sub_filter)]
     print("\nFetching rows with {0:s}.....\n".format(sub_filter))
     print(dataFrame)
-
-"""Potential Filters: Author l-f, Additional Authors, ISBN, ISBN13, My Rating, Average Rating,
-    Original Publication Year,Read Count,Owned Copies, My Review (search for keywords)"""
 
 ## Console to prompt user
 # Ask for file name
@@ -87,22 +75,22 @@ if os.path.exists(fullPath):
 
 # Ask for filter(s), (One filter for now)
 print(dataFrame.dtypes)
-filter = input("Enter the type of filter that you would like to use: ")
+filter_type = input("Enter the type of filter that you would like to use (genre, author, year published, publisher, binding type, date added): ").lower()
 sub_filter = input("Enter the constraint for the filter: ") # Make the sub-filter case insensitive
-# Call methods based on user input 
-# Make these case insensitive
-match filter:
-    case "genre":
-        filter_genre(dataFrame, sub_filter)
-    case "author":
-        filter_author(dataFrame, sub_filter)
-    case "year published":
-        filter_year_published(dataFrame,sub_filter)
-    case "publisher":
-        filter_publisher(dataFrame,sub_filter)
-    case "binding type":
-        filter_binding_type(dataFrame,sub_filter)
-    case "date added":
-        filter_date_added(dataFrame, sub_filter)
-    
 
+    
+# Map filter types to column names in the DataFrame
+column_mapping = {
+    "genre": "Genre",
+    "author": "Author",
+    "year published": "Year Published",
+    "publisher": "Publisher",
+    "binding": "Binding",
+    "date added": "Date Added"
+}
+
+# Ensure the filter type exists in the mapping
+if filter_type in column_mapping:
+    filter_dataframe(dataFrame, column_mapping[filter_type], sub_filter)
+else:
+    print("Invalid filter type entered.")
