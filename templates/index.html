@@ -1,0 +1,51 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV Filter</title>
+    <!-- TO DO: Custom stylesheet -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<!-- import './index.css'; -->
+<body>
+    <div class="container">
+
+        <h1>Upload Goodreads CSV File and Apply Filters</h1>
+
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file">Upload CSV File:</label>
+                <input type="file" class="form-control" id="file" name="file">
+            </div>
+
+            <div class="form-group">
+                <label for="filter_type">Filter Type:</label>
+                <select class="form-control" id="filter_type" name="filter_type">
+                    <option value="Author">Author</option>
+                    <option value="Year Published">Year Published</option>
+                    <option value="Publisher">Publisher</option>
+                    <option value="Binding">Binding</option>
+                    <option value="Date Added">Date Added</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="sub_filter">Filter Constraint:</label>
+                <input type="text" class="form-control" id="sub_filter" name="sub_filter" placeholder="Enter filter constraint">
+            </div>
+            <button type="submit" class="btn btn-primary">Apply Filters</button>
+        </form>
+
+        <!-- Conditionally render the table if results exist -->
+        {% if table %}
+            <h2 class="mt-5">Filtered Results</h2>
+            <div class="table-responsive">
+                {{ table|safe }}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
