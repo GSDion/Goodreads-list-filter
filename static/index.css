@@ -1,0 +1,29 @@
+body {
+    background-color: rgb(249, 247, 244) !important;
+    
+}
+
+.container h1 {
+    color: rgb(88, 83, 78) !important;
+}
+
+.container h2 {
+    color:rgb(168, 138, 127) !important;
+}
+
+.btn.apply-filters-btn {
+    background-color:rgb(88, 83, 78) ;
+}
+
+.btn.add-filters-btn {
+    background-color: rgb(61, 147, 99);
+}
+
+.btn.delete-filter {
+    background-color: red;
+}
+
+.btn {
+    margin-top: 10px !important;
+}
+/* top margin of buttons, color of delete-filter button (red), color of add-filter button (green)*/
