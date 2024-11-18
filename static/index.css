@@ -26,4 +26,9 @@ body {
 .btn {
     margin-top: 10px !important;
 }
+
+.panel {
+    margin-top:40px;
+    margin-bottom:40px;
+}
 /* top margin of buttons, color of delete-filter button (red), color of add-filter button (green)*/

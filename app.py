@@ -4,6 +4,11 @@ import pandas as pd
 
 app = Flask(__name__)
 
+# FAQ/Contact Route
+@app.route('/faq')
+def faq():
+    return render_template('faq.html')
+
 # Home route to display the form and results
 @app.route('/', methods=['GET', 'POST'])
 def index():
