@@ -31,4 +31,13 @@ body {
     margin-top:40px;
     margin-bottom:40px;
 }
+
+ #contact:target { /* i.e when this element is navigated to (from a link) */
+    animation-name: ref-animation;
+    animation-duration: 3s;
+ }
+ @keyframes ref-animation {
+    from { background-color: #FFFFCC;     }  
+    to   { background-color: transparent; }  
+ }
 /* top margin of buttons, color of delete-filter button (red), color of add-filter button (green)*/

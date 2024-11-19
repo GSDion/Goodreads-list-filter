@@ -39,7 +39,7 @@
                 <hr>
                 <div class="panel-body padding-bottom-none">
                     <div>
-                        <p>GoodreadsFilter allows you to filter your Goodreads list by a specified filter (Author) and filter constraint (George R.R. Martin).
+                        <p>GoodreadsFilter allows you to filter the books associated with your Goodreads account by a specified filter (Author) and filter constraint (George R.R. Martin).
                             As you can see, each filter is associated with a filter constraint and you are allowed to select multiple pairs when you choose to filter your Goodreads
                             list.</p>
                     </div>
@@ -47,25 +47,25 @@
         </section>
 
         <section class="panel panel-default">
-            <h2 class="panel-heading">Why can't I just enter the link of my Goodreads list and filter it like that? Why do I have to use a CSV file?</h2>
+            <h2 class="panel-heading">Why can't I just enter the link of my Goodreads account and have my list of books filtered like that? Why do I have to use a CSV file?</h2>
                 <hr>
                 <div class="panel-body padding-bottom-none">
                     <div>
-                        <p>This would require me to use either the Goodreads API or a parser (to parse the Goodreads website). Unfortunetly, I cannot
+                        <p>This would require me to use either the Goodreads API or a parser (to parse the Goodreads website). Unfortunately, I cannot
                             use the Goodreads API because Goodreads does not hand out API keys anymore. If I could use the Goodreads API, then
                             I would. As for the parser, this is something that I have considered using and I may use it in the future. But for now, it is easier
-                            for me to filter Goodreads list using a CSV file.</p>
+                            for me to filter the books associated with a Goodreads account using a CSV file.</p>
                     </div>
                 </div>
         </section>
 
 
         <section class="panel panel-default" >
-            <h2 class="panel-heading">How can I acquire a CSV file for my Goodreads list?</h2>
+            <h2 class="panel-heading">How can I acquire a CSV file for my the books associated with my Goodreads account?</h2>
                 <hr>
                 <div class="panel-body padding-bottom-none">
                     <div>
-                        <p>Acquiring a CSV file for </p>
+                        <p>You can acquire one here: </p>
                     </div>
                 </div>
         </section>
@@ -86,7 +86,7 @@
                 </div>
         </section>
 
-        <section class="panel panel-default" id="contact">
+        <section class="panel panel-default contact" id="contact">
             <h2 class="panel-heading">Contact Information</h2>
                 <hr>
                 <div class="panel-body padding-bottom-none">
@@ -98,6 +98,29 @@
                     </div>
                 </div>
         </section>
+
+        <div class="container">
+            <footer class="py-3 my-4">
+            <!-- <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                <li class="nav-item"><a href="{{ url_for('index') }}" class="nav-link px-2 text-body-secondary">Home</a></li>
+                <li class="nav-item"><a href="{{ url_for('faq') }}" class="nav-link px-2 text-body-secondary">FAQ</a></li>
+                <li class="nav-item"><a href="{{ url_for('faq') }}#contact" class="nav-link px-2 text-body-secondary">Contact</a></li>
+            </ul> -->
+            <p class="text-center text-body-secondary">&copy; 2024 Dion Humphrey</p>
+            </footer>
+        </div>
+
+        <script>
+            function changeDivColor(color) {
+                document.getElementById("contact").style.backgroundColor = color;
+            }
+            document.getElementById("#contact").onClick = function() { //when the anchor is clicked
+                changeDivColor("red"); //chang the div color to red
+                setTimeout(function() { //wait 1000 milliseconds (1s) -- see below
+                    changeDivColor("white"); //then change it back to white
+                }, 1000);
+            };
+        </script>
 
     </div>
     <!--Footer-->

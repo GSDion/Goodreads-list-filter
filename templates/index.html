@@ -15,6 +15,7 @@
     <div class="container">
         <h1 style="margin-bottom:40px">GoodreadsFilter </h1>
         <h2>Upload a Goodreads CSV File and Apply the Filters</h2>
+        <!--put link to csv import for the words "Goodreads CSV file"-->
 
         <form action="/" method="POST" enctype="multipart/form-data">
 
@@ -112,6 +113,18 @@
             <p class="text-center text-body-secondary">&copy; 2024 Dion Humphrey</p>
             </footer>
         </div>
+
+        <!-- <script>
+            function changeDivColor(color) {
+                document.getElementById("contact").style.backgroundColor = color;
+            }
+            document.getElementById("{{ url_for('faq') }}#contact").onClick = function() { //when the anchor is clicked
+                changeDivColor("red"); //chang the div color to red
+                setTimeout(function() { //wait 1000 milliseconds (1s) -- see below
+                    changeDivColor("white"); //then change it back to white
+                }, 1000);
+            };
+        </script> -->
 
         <!--Footer with faq, github link, contact page-->
             
