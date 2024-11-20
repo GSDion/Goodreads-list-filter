@@ -29,11 +29,57 @@
                     <label for="filter_type">Filter Type:</label>
                     <!--Make sure the names for filter_type[ ] and sub_filter[ ] match the python-->
                     <select class="form-control" id="filter_type" name="filter_type[]">
+                        <!--TO DO: Generate filter types in dropdown based on column names in dataframe-->
+                        <!-- {% for column_name in columns_list %}
+                            <option value="{{ column_name }}">{{ column_name }}</option>
+                        {% endfor %} -->
+                        <!--Give formatting examples-->
                         <option value="Author">Author</option>
-                        <option value="Year Published">Year Published</option>
+                        <option value="Author l-f">Author l-f</option>
+                        <option value="Additional Authors">Additional Authors</option>
+                        <option value="ISBN">ISBN</option>
+                        <option value="ISBN13">ISBN13</option>
+                        <option value="My Rating">My Rating</option> <!--Figure out Formatting-->
+                        <option value="Average Rating">Average Rating</option> <!--Figure out Formatting-->
                         <option value="Publisher">Publisher</option>
                         <option value="Binding">Binding</option>
-                        <option value="Date Added">Date Added</option>
+                        <option value="Number of Pages">Number of Pages</option>
+                        <option value="Year Published">Year Published</option>
+                        <option value="Original Publication Year">Original Publication Year</option>
+                        <option value="Date Read">Date Read</option> <!--Figure out Formatting-->
+                        <option value="Date Added">Date Added</option> <!--Figure out Formatting-->
+                        <option value="Bookshelves">Bookshelves</option> <!--Figure out Formatting-->
+                        <option value="Bookshelves with Positions">Bookshelves with Positions</option> <!--Figure out Formatting-->
+                        <option value="Exclusive Shelf">Exclusive Shelf</option> <!--Figure out Formatting-->
+                        <option value="My Review">My Review</option>
+                        <option value="Spoiler">Spoiler</option>
+                        <option value="Private Notes">Private Notes</option>
+                        <option value="Read Count">Read Count</option>
+                        <option value="Owned Copies">Owned Copies</option>
+                        <!--Title                          object
+                            Author                         object
+                            Author l-f                     object
+                            Additional Authors             object
+                            ISBN                           object
+                            ISBN13                         object
+                            My Rating                       int64  (How do these look in CSV files?)
+                            Average Rating                float64 (How do these look in CSV files?)
+                            Publisher                      object
+                            Binding                        object
+                            Number of Pages                 int64
+                            Year Published                  int64
+                            Original Publication Year     float64
+                            Date Read                      object
+                            Date Added                     object
+                            Bookshelves                    object
+                            Bookshelves with positions     object
+                            Exclusive Shelf                object
+                            My Review                      object
+                            Spoiler                       float64
+                            Private Notes                 float64
+                            Read Count                      int64
+                            Owned Copies                    int64
+                            dtype: object"""-->
                     </select>
                 </div>
 
@@ -75,13 +121,30 @@
                     <label>Select Filter Type:</label>
                     <select name="filter_type[]" class="form-control">
                         <option value="Author">Author</option>
-                        <option value="Year Published">Year Published</option>
+                        <option value="Author l-f">Author l-f</option>
+                        <option value="Additional Authors">Additional Authors</option>
+                        <option value="ISBN">ISBN</option>
+                        <option value="ISBN13">ISBN13</option>
+                        <option value="My Rating">My Rating</option> <!--Figure out Formatting-->
+                        <option value="Average Rating">Average Rating</option> <!--Figure out Formatting-->
                         <option value="Publisher">Publisher</option>
                         <option value="Binding">Binding</option>
-                        <option value="Date Added">Date Added</option>
+                        <option value="Number of Pages">Number of Pages</option>
+                        <option value="Year Published">Year Published</option>
+                        <option value="Original Publication Year">Original Publication Year</option>
+                        <option value="Date Read">Date Read</option> <!--Figure out Formatting-->
+                        <option value="Date Added">Date Added</option> <!--Figure out Formatting-->
+                        <option value="Bookshelves">Bookshelves</option> <!--Figure out Formatting-->
+                        <option value="Bookshelves with Positions">Bookshelves with Positions</option> <!--Figure out Formatting-->
+                        <option value="Exclusive Shelf">Exclusive Shelf</option> <!--Figure out Formatting-->
+                        <option value="My Review">My Review</option>
+                        <option value="Spoiler">Spoiler</option>
+                        <option value="Private Notes">Private Notes</option>
+                        <option value="Read Count">Read Count</option>
+                        <option value="Owned Copies">Owned Copies</option>
                     </select>
                     <label>Enter Filter Constraint:</label>
-                    <input type="text" name="sub_filter[]" class="form-control" placeholder="Enter constraint">
+                    <input type="text" name="sub_filter[]" class="form-control" placeholder="Enter filter constraint">
                     <button type="button" class="delete-filter btn btn-secondary mt-2">Delete filter</button>
                 `;
 

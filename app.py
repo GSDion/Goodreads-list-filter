@@ -3,7 +3,6 @@ from flask import Flask, request, render_template, redirect, url_for
 import pandas as pd
 
 app = Flask(__name__)
-
 # FAQ/Contact Route
 @app.route('/faq')
 def faq():
@@ -13,6 +12,7 @@ def faq():
 @app.route('/', methods=['GET', 'POST'])
 def index():
     table = None  # Initialize the variable to store the filtered table
+    columns_list = []
     if request.method == 'POST':
         # Debug: Print the entire form data
         print("Form data received:", request.form)
@@ -27,6 +27,7 @@ def index():
         if file:
             # Load the uploaded file directly into a DataFrame (in-memory)
             dataFrame = pd.read_csv(file)
+            # columns_list = dataFrame.columns.tolist();
 
             # Get the filter inputs from the form
             # TO DO: Populate filters on form depending on column names of csv file
@@ -35,6 +36,7 @@ def index():
             # filter_type = request.form.get('filter_type')
             # sub_filter = request.form.get('sub_filter')
             
+
             # if filter_type and sub_filter:
             #     filters[filter_type] = sub_filter
              # Get all filter types and sub-filters from the form

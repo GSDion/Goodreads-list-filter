@@ -20,7 +20,7 @@ body {
 }
 
 .btn.delete-filter {
-    background-color: red;
+    background-color: rgb(211, 26, 26);
 }
 
 .btn {
