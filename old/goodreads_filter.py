@@ -44,6 +44,7 @@ def filter_dataframe(dataFrame, filters):
     for column_name, sub_filter in filters.items():
         # Attempt to convert columns to string before applying the filter
         if column_name in ['Year Published', 'Date Added']:  # Columns that might need specific handling
+            # Dated added YYYY/MM/DD
             dataFrame = dataFrame[dataFrame[column_name].astype('str').str.contains(sub_filter, na=False)]
         else:
             dataFrame = dataFrame[dataFrame[column_name].str.contains(sub_filter, na=False)]
