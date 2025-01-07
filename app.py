@@ -1,8 +1,20 @@
 import os
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for, session
+# The Session instance is not used for direct access, should always use flask.session instead
+from flask_session import Session
 import pandas as pd
+from config import Config
+
+ALLOWED_EXTENSIONS = {'csv'}
 
 app = Flask(__name__)
+app.config.from_object(Config)
+app.config['UPLOAD_FOLDER']
+app.config["SECRET_KEY"]
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
+
 # FAQ/Contact Route
 @app.route('/faq')
 def faq():
@@ -11,35 +23,32 @@ def faq():
 # Home route to display the form and results
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    table = None  # Initialize the variable to store the filtered table
-    columns_list = []
+    table = None
+    uploaded_file_name = session.get('uploaded_file')  # Retrieve the file name from session
+    
+    # Check if a file has been uploaded and saved previously
+    if uploaded_file_name:
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file_name)
+    else:
+        file_path = None
+    
     if request.method == 'POST':
         # Debug: Print the entire form data
         print("Form data received:", request.form)
-        if 'file' not in request.files:
-            return "No file uploaded", 400
+        if 'file' in request.files:
+            file = request.files['file']
+            if file and file.filename != '':
+                file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+                file.save(file_path)
+                # Store only the filename in the session so as to save space (cookies can only store so much)
+                session['uploaded_file'] = file.filename 
 
-        file = request.files['file']
+            # If file_path is None, prompt the user to upload a file
+            if not file_path or not os.path.exists(file_path):
+                return "No file uploaded or found. Please upload a file.", 400
         
-        if file.filename == '':
-            return "No selected file", 400
-        
-        if file:
             # Load the uploaded file directly into a DataFrame (in-memory)
-            dataFrame = pd.read_csv(file)
-            # columns_list = dataFrame.columns.tolist();
-
-            # Get the filter inputs from the form
-            # TO DO: Populate filters on form depending on column names of csv file
-            # TO DO: Multiple filters (one sub_filter each)
-            # filters = {}
-            # filter_type = request.form.get('filter_type')
-            # sub_filter = request.form.get('sub_filter')
-            
-
-            # if filter_type and sub_filter:
-            #     filters[filter_type] = sub_filter
-             # Get all filter types and sub-filters from the form
+            dataFrame = pd.read_csv(file_path)
             filter_types = request.form.getlist('filter_type[]')
             sub_filters = request.form.getlist('sub_filter[]')
             # Debug: Print filters
@@ -51,7 +60,6 @@ def index():
                 if filter_type and sub_filter:
                     filters[filter_type] = sub_filter
 
-            
             # Apply filters
             filtered_data = filter_dataframe(dataFrame, filters)
 

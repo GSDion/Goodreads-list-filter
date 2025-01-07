@@ -1,2 +1,13 @@
 #Ignore env folder
 \.venv
+
+#Ignore config file
+\config.py
+
+# Byte-compiled / optimized / DLL files
+**/__pycache__/
+
+#Ignore Flask_Session files
+\flask_session
+\uploads
+
