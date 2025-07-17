@@ -1,4 +1,4 @@
-## GoodreadsFilter
+# GoodreadsFilter
 <p> Filter exported GoodReads libraries by applying filters such as "Author", "date-added", "title", "year published", etc.
 
 To expound upon that brief explanation, GoodreadsFilter allows you to filter the data associated with your Goodreads account by a specified filter (Author) and filter constraint (George R.R. Martin). Each filter is associated with a filter constraint and you are allowed to select multiple pairs when you choose to filter your Goodreads data.
